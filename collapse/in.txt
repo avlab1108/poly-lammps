@@ -1,0 +1,22 @@
+###### RUN CONNAMD
+# lmp_serial.exe < in.txt
+# lmp_serial < in.txt
+
+units		real
+atom_modify	sort 0 0.0
+atom_style      bond
+boundary	f f f
+bond_style	harmonic
+
+read_data	data.txt
+
+velocity 	all create 300.0 123123
+
+fix		1 all nvt  temp 300.0 300.0 100
+
+dump 1 all movie 500 movie_poly.avi type type zoom 3 adiam 1 size 1280 720
+
+dump 4a all custom 100000 dump.*.txt id type mass x y z
+
+run 200000
+
