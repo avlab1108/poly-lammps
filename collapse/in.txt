@@ -10,6 +10,9 @@ bond_style	harmonic
 
 read_data	data.txt
 
+pair_style lj/cut 2.5
+pair_coeff * * 1 1
+
 velocity 	all create 300.0 123123
 
 fix		1 all nvt  temp 300.0 300.0 100
