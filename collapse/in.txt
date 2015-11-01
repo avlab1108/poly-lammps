@@ -1,5 +1,4 @@
 ###### RUN CONNAMD
-# lmp_serial.exe < in.txt
 # lmp_serial < in.txt
 
 units		real
@@ -10,8 +9,8 @@ bond_style	harmonic
 
 read_data	data.txt
 
-pair_style lj/cut 2.5
-pair_coeff * * 1 1
+pair_style lj/cut 3
+pair_coeff * * 0.1 1
 
 velocity 	all create 300.0 123123
 
