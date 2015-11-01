@@ -10,15 +10,18 @@ bond_style	harmonic
 read_data	data.txt
 
 pair_style lj/cut 3
+
+# change epsilon for coil-globule transition
 pair_coeff * * 0.1 1
+#pair_coeff * * 1 1
 
 velocity 	all create 300.0 123123
 
 fix		1 all nvt  temp 300.0 300.0 100
 
-dump 1 all movie 500 movie_poly.avi type type zoom 3 adiam 1 size 1280 720
+dump 1 all movie 100 movie_poly.avi type type zoom 3 adiam 1 size 1280 720
 
 dump 4a all custom 100000 dump.*.txt id type mass x y z
 
-run 200000
+run 100000
 
