@@ -1,0 +1,86 @@
+# VARIABLES
+variable fname index polymer180.lmp
+variable simname index PE_cl100
+
+# Initialization
+units		real
+boundary	p p p
+atom_style	full
+log 		log.${simname}.txt
+read_data	${fname}
+create_atoms 2 random 6000 121124 NULL #кидаем_атомы тип случайно количество seed NULL (NULL значит что по всей ячейке)
+group 1 type 1 # для вывода всей ячейки и цепи отдельно от растворителя
+group 2 type 2
+# Dreiding potential information
+neighbor	8 bin
+neigh_modify	every 10 one 10000 check yes
+#bond_style fene
+#bond_coeff 1 30.0 3.2 1.0 1.0
+bond_style  harmonic
+bond_coeff	1 250 1.53
+angle_style     harmonic
+angle_coeff	1 0.1 180
+pair_style	soft 2.5 # чтобы растолкать частицы
+#pair_coeff	1 1 1.0 4.01 10.5
+pair_coeff * * 7.0 
+compute csym all centro/atom fcc
+compute peratom all pe/atom 
+
+dihedral_style none
+
+
+#####################################################
+# Equilibration (Langevin dynamics at 5000 K)
+
+velocity 	all create 300.0 1231
+#fix		1 all nve/limit 0.05
+#fix		2 all langevin 300.0 300.0 10.0 904297
+fix 1 all nvt temp 300.0 300.0 100.0
+thermo_style	custom step temp 
+thermo          10000
+timestep	0.1
+dump 11 all movie 500 movie_1.avi type type zoom 2 adiam 2 size 1280 720
+dump 13 1 movie 500 movie_2.avi type type zoom 2 adiam 2 size 1280 720
+dump 4a all custom 200000 dump.*.txt id type mass x y z
+run		100000
+fix 1 all nvt temp 300.0 300.0 100.0
+
+
+
+
+pair_style lj/cut 2.5
+pair_coeff	1 1 0.1 1 2.5
+pair_coeff	1 2 0.1 1 2.5
+pair_coeff	2 2 0.1 1 2.5
+
+
+run 5000000
+
+unfix 1
+unfix 2
+write_restart 	restart.${simname}.dreiding1
+
+
+#####################################################
+# Define Settings
+#compute eng all pe/atom 
+#compute eatoms all reduce sum c_eng 
+
+#####################################################
+# Video
+#dump 1 all movie 100 movie_2.avi type type zoom 3 adiam 1 size 1280 720
+
+#####################################################
+# Minimization
+
+# dump 		2 all cfg 6 dump.comp_*.cfg id type xs ys zs c_csym c_peratom fx fy fz
+
+#reset_timestep 0 
+#fix 1 all nvt temp 500.0 500.0 100.0
+#thermo 20 
+#thermo_style custom step pe lx ly lz press pxx pyy pzz c_eatoms 
+#min_style cg
+#minimize 1e-25 1e-25 500000 1000000 
+
+
+print "All done"
