@@ -10,7 +10,7 @@ do
     FOLD="run-$(($i*4 + $j))"
     echo "folder = $FOLD"
     mkdir $FOLD
-    sed "s/\<seed\>/$RANDOM/g" $IN_FILE > in.txt
+    sed "s/\<randomSeed\>/$RANDOM/g" $IN_FILE > in.txt
     cp in.txt $FOLD 
     cp $CHAIN_FILE $FOLD 
     cd $FOLD
