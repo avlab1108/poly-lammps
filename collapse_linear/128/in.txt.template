@@ -1,6 +1,7 @@
 # VARIABLES
 variable fname index chain.dat
 variable simname index chain
+variable seed index <seed>
 
 # Initialization
 units		real
