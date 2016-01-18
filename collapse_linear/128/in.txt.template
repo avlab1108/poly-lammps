@@ -34,8 +34,8 @@ thermo_style	custom step temp
 thermo          10000
 timestep	0.1
 dump 11 all movie 500 movie_1.avi type type zoom 3 adiam 1 size 1280 720
-dump 4a all custom 500000 dump.*.txt id type mass x y z
-run		500000
+dump 4a all custom 2500000 dump.*.txt id type mass x y z
+run		2500000
 
 
 
