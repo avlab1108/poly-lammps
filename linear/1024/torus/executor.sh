@@ -3,11 +3,11 @@
 IN_FILE="in.txt.template"
 CHAIN_FILE="chain.dat"
 
-for i in {0..100}
+for i in {0..25}
 do
-  for j in {0..0}
+  for j in {1..4}
   do
-    FOLD="run-$(($i + $j))"
+    FOLD="run-$(($i*4 + $j))"
     echo "folder = $FOLD"
     if [ ! -d "$FOLD" ]; then
       mkdir $FOLD
