@@ -3,7 +3,7 @@
 IN_FILE="in.txt.template"
 CHAIN_FILE="chain.dat"
 
-for i in {0..25}
+for i in {0..24}
 do
   for j in {1..4}
   do

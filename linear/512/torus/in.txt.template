@@ -3,7 +3,7 @@ variable fname index chain.dat
 variable simname index chain
 variable startTemp index 1200.0
 variable endTemp index 75.0
-variable seed index 1121
+variable seed index randomSeed
 
 # Initialization
 units		real
