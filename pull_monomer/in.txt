@@ -20,6 +20,8 @@ bond_style      harmonic
 bond_coeff	1 100 1
 pair_style	lj/cut 2.5
 pair_coeff	1 1 1.0 1.0 2.5
+pair_coeff	1 2 1.0 1.0 2.5
+pair_coeff	2 2 1.0 1.0 2.5
 
 compute gyr all gyration
 compute com all com
@@ -39,7 +41,7 @@ thermo          10000
 timestep	0.1
 dump 11 all movie 2500 collapse.avi type type box no 0.0 zoom 10 adiam 1.0 center s 0.53 0.484 0.528 bond type 0.1 size 1280 720
 dump d0 all image ${dumpStep} dump.*.jpg type type box no 0.0 zoom 10 adiam 1.0 center s 0.53 0.484 0.528 bond type 1
-dump 4a all custom ${dumpStep} dump.*.txt id type mass xu yu zu
+dump 4a all custom ${dumpStep} dump.*.txt id type mass q xu yu zu
 run		15000000
 
 print "All done"
